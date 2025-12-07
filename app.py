@@ -2,7 +2,7 @@
 WhatsApp Bot Trieste - App principale Flask
 """
 
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template
 from routes.webhook import webhook_bp
 from database import get_db_session, ClienteDB, FAQDB, MessaggioDB
 from config import Config
@@ -162,6 +162,14 @@ def internal_error(error):
     return jsonify({"error": "Internal server error"}), 500
 
 # ===== AVVIO =====
+
+# ===== DASHBOARD =====
+
+@app.route('/dashboard', methods=['GET'])
+def dashboard():
+    """Dashboard admin"""
+    return render_template('dashboard.html')
+
 
 if __name__ == '__main__':
     print("\n" + "="*70)
