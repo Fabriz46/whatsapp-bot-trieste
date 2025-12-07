@@ -5,6 +5,10 @@ Script per aggiungere FAQ al database
 import sys
 sys.path.insert(0, '.')
 
+# Carica variabili d'ambiente PRIMA di importare database
+from dotenv import load_dotenv
+load_dotenv()
+
 from database import get_db_session, FAQDB
 from datetime import datetime
 
