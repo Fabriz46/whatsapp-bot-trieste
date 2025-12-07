@@ -5,6 +5,10 @@ Script per aggiungere clienti al database
 import sys
 sys.path.insert(0, '.')
 
+# Carica variabili d'ambiente PRIMA di importare database
+from dotenv import load_dotenv
+load_dotenv()
+
 from database import get_db_session, ClienteDB
 from datetime import datetime
 
