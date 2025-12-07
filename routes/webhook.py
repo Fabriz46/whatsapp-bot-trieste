@@ -198,6 +198,11 @@ def webhook_handle_messages():
                 
                 # Estrai i dati
                 numero_cliente = contacts[0].get("wa_id", "")
+
+                # Meta manda numero SENZA +, aggiungiamo noi
+                if numero_cliente and not numero_cliente.startswith("+"):
+                    numero_cliente = "+" + numero_cliente
+
                 nome_cliente = contacts[0].get("profile", {}).get("name", "Sconosciuto")
                 messaggio_testo = messages[0].get("text", {}).get("body", "").strip()
                 
