@@ -1,3 +1,7 @@
+"""
+Configurazione Bot - Impostazioni principali
+"""
+
 import os
 from dotenv import load_dotenv
 
@@ -8,8 +12,8 @@ class Config:
     """Tutte le configurazioni del bot"""
     
     # ===== DATABASE =====
-    # Questo lo configurerai domani su Railway
-    DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///bot.db")
+    # Caricato da database.py
+    DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///bot_database.db")
     
     # ===== WHATSAPP API =====
     WHATSAPP_API_URL = "https://graph.instagram.com/v18.0"
@@ -22,10 +26,15 @@ class Config:
     PERPLEXITY_API_URL = "https://api.perplexity.ai/openai/v1/chat/completions"
     
     # ===== IMPOSTAZIONI BOT =====
-    FUZZY_MATCH_THRESHOLD = 70  # Quanto deve somigliare per trovare FAQ
+    # Quanto deve somigliare una domanda a una keyword per essere FAQ match
+    FUZZY_MATCH_THRESHOLD = 70  # 0-100, >= significa match
     
     # ===== FLASK =====
     SECRET_KEY = os.getenv("SECRET_KEY", "dev-secret-key-change-in-production")
     DEBUG = os.getenv("DEBUG", "False") == "True"
+    ENVIRONMENT = os.getenv("ENVIRONMENT", "development")
     
-    print("✅ Config caricata correttamente")
+    # ===== PORT =====
+    PORT = int(os.getenv("PORT", 5000))
+
+print("✅ Config caricata correttamente")
