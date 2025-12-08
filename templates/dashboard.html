@@ -4,14 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🎛️ Dashboard Bot WhatsApp Trieste</title>
-
-<div style="display: flex; align-items: center; gap: 20px;">
-    <span id="username-display" style="color: #208089; font-weight: 600;"></span>
-    <button class="btn btn-secondary" onclick="logout()" style="padding: 8px 15px; font-size: 13px;">
-        🚪 Logout
-    </button>
-</div>
-
     <style>
         * {
             margin: 0;
@@ -42,7 +34,6 @@
             padding: 20px;
         }
 
-        /* HEADER */
         .header {
             background: white;
             padding: 20px;
@@ -57,6 +48,12 @@
         .header h1 {
             font-size: 24px;
             color: var(--primary);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
         }
 
         .header-stats {
@@ -80,7 +77,6 @@
             text-transform: uppercase;
         }
 
-        /* TABS */
         .tabs {
             display: flex;
             gap: 10px;
@@ -109,7 +105,6 @@
             color: var(--primary);
         }
 
-        /* TAB CONTENT */
         .tab-content {
             display: none;
             animation: fadeIn 0.3s;
@@ -124,7 +119,6 @@
             to { opacity: 1; }
         }
 
-        /* CARD */
         .card {
             background: white;
             padding: 20px;
@@ -140,7 +134,6 @@
             color: var(--primary);
         }
 
-        /* FORM */
         .form-group {
             margin-bottom: 15px;
         }
@@ -176,7 +169,6 @@
             gap: 20px;
         }
 
-        /* BOTTONI */
         .btn {
             padding: 10px 20px;
             border: none;
@@ -226,7 +218,6 @@
             margin-top: 15px;
         }
 
-        /* TABELLA */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -267,24 +258,12 @@
             color: #155724;
         }
 
-        .badge-warning {
-            background: #fff3cd;
-            color: #856404;
-        }
-
-        .badge-danger {
-            background: #f8d7da;
-            color: #721c24;
-        }
-
-        /* AZIONI */
         .actions {
             display: flex;
             gap: 8px;
             justify-content: flex-end;
         }
 
-        /* ALERT */
         .alert {
             padding: 12px 15px;
             border-radius: 4px;
@@ -304,7 +283,6 @@
             display: block;
         }
 
-        /* SEARCH */
         .search-bar {
             display: flex;
             gap: 10px;
@@ -324,75 +302,6 @@
             border-radius: 4px;
         }
 
-        /* MODAL */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: white;
-            padding: 30px;
-            border-radius: 8px;
-            max-width: 500px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-
-        .modal-header {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: var(--primary);
-        }
-
-        .modal-footer {
-            display: flex;
-            gap: 10px;
-            justify-content: flex-end;
-            margin-top: 20px;
-        }
-
-        /* RESPONSIVE */
-        @media (max-width: 768px) {
-            .header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .header-stats {
-                width: 100%;
-                margin-top: 15px;
-                flex-wrap: wrap;
-            }
-
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-
-            table {
-                font-size: 12px;
-            }
-
-            .actions {
-                flex-direction: column;
-            }
-        }
-
-        /* LOADING */
         .loading {
             text-align: center;
             padding: 40px;
@@ -413,6 +322,23 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .header-stats {
+                width: 100%;
+                margin-top: 15px;
+                flex-wrap: wrap;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
@@ -420,18 +346,26 @@
         <!-- HEADER -->
         <div class="header">
             <h1>🎛️ Dashboard WhatsApp Bot</h1>
-            <div class="header-stats">
-                <div class="stat">
-                    <div class="stat-number" id="stat-clienti">0</div>
-                    <div class="stat-label">Clienti</div>
+            <div class="header-right">
+                <div class="header-stats">
+                    <div class="stat">
+                        <div class="stat-number" id="stat-clienti">0</div>
+                        <div class="stat-label">Clienti</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number" id="stat-faq">0</div>
+                        <div class="stat-label">FAQ</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number" id="stat-attivi">0</div>
+                        <div class="stat-label">Attivi</div>
+                    </div>
                 </div>
-                <div class="stat">
-                    <div class="stat-number" id="stat-faq">0</div>
-                    <div class="stat-label">FAQ</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-number" id="stat-attivi">0</div>
-                    <div class="stat-label">Attivi</div>
+                <div style="display: flex; align-items: center; gap: 20px; border-left: 1px solid #ddd; padding-left: 20px;">
+                    <span id="username-display" style="color: #208089; font-weight: 600;"></span>
+                    <button class="btn btn-secondary" onclick="logout()" style="padding: 8px 15px; font-size: 13px;">
+                        🚪 Logout
+                    </button>
                 </div>
             </div>
         </div>
@@ -574,24 +508,46 @@
         <!-- TAB: ANALYTICS -->
         <div id="tab-analytics" class="tab-content">
             <div class="card">
-                <div class="card-title">📊 Statistiche Generali</div>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                <div class="card-title">📊 Dashboard Real-Time</div>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 30px;">
                     <div style="background: #f0f8ff; padding: 20px; border-radius: 8px;">
-                        <div style="font-size: 28px; font-weight: bold; color: var(--primary);" id="stats-clienti">0</div>
+                        <div style="font-size: 28px; font-weight: bold; color: #208089;" id="analytics-clienti">0</div>
                         <div style="font-size: 12px; color: #888; margin-top: 5px;">Clienti Totali</div>
                     </div>
                     <div style="background: #f0fff4; padding: 20px; border-radius: 8px;">
-                        <div style="font-size: 28px; font-weight: bold; color: var(--success);" id="stats-attivi">0</div>
+                        <div style="font-size: 28px; font-weight: bold; color: #28a745;" id="analytics-attivi">0</div>
                         <div style="font-size: 12px; color: #888; margin-top: 5px;">Clienti Attivi</div>
                     </div>
                     <div style="background: #fffaf0; padding: 20px; border-radius: 8px;">
-                        <div style="font-size: 28px; font-weight: bold; color: var(--warning);" id="stats-faq">0</div>
-                        <div style="font-size: 12px; color: #888; margin-top: 5px;">FAQ Disponibili</div>
+                        <div style="font-size: 28px; font-weight: bold; color: #ffc107;" id="analytics-messaggi">0</div>
+                        <div style="font-size: 12px; color: #888; margin-top: 5px;">Messaggi (Settimana)</div>
                     </div>
                     <div style="background: #fff5f5; padding: 20px; border-radius: 8px;">
-                        <div style="font-size: 28px; font-weight: bold; color: var(--danger);" id="stats-messaggi">0</div>
-                        <div style="font-size: 12px; color: #888; margin-top: 5px;">Clienti con Messaggi</div>
+                        <div style="font-size: 28px; font-weight: bold; color: #dc3545;" id="analytics-faq">0</div>
+                        <div style="font-size: 12px; color: #888; margin-top: 5px;">FAQ Disponibili</div>
                     </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">🥧 Distribuzione Clienti per Settore</div>
+                <div style="position: relative; height: 400px;">
+                    <canvas id="chart-settori"></canvas>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">📊 Tipo di Risposta</div>
+                <div style="position: relative; height: 300px;">
+                    <canvas id="chart-risposte"></canvas>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">📋 Report Mensile</div>
+                <div id="report-mensile-container">
+                    <p>Caricamento...</p>
                 </div>
             </div>
         </div>
@@ -601,7 +557,7 @@
             <div class="card">
                 <div class="card-title">⚙️ Impostazioni Bot</div>
                 <p style="color: #888; margin-bottom: 20px;">
-                    ℹ️ Le impostazioni sono gestite dal file de>.env</code><br>
+                    ℹ️ Le impostazioni sono gestite dal file <code>.env</code><br>
                     Per modificarle, accedi a Railway e aggiorna le variabili di ambiente.
                 </p>
                 <div style="background: #f8f9fa; padding: 15px; border-radius: 4px; border-left: 4px solid var(--primary);">
@@ -616,58 +572,56 @@
         </div>
     </div>
 
-    <!-- SCRIPT -->
+    <!-- CHART.JS Library (CDN) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+
     <script>
-
         // ============================================================================
-// AUTENTICAZIONE
-// ============================================================================
+        // AUTENTICAZIONE
+        // ============================================================================
 
-async function checkAuth() {
-    try {
-        const response = await fetch('/auth/check');
-        const data = await response.json();
+        async function checkAuth() {
+            try {
+                const response = await fetch('/auth/check');
+                const data = await response.json();
 
-        if (!data.authenticated) {
-            window.location.href = '/login';
-            return false;
+                if (!data.authenticated) {
+                    window.location.href = '/login';
+                    return false;
+                }
+
+                document.getElementById('username-display').textContent = 
+                    `👤 ${data.username} (${data.ruolo})`;
+
+                return true;
+            } catch (error) {
+                console.error('Errore autenticazione:', error);
+                window.location.href = '/login';
+            }
         }
 
-        // Mostra username
-        document.getElementById('username-display').textContent = 
-            `👤 ${data.username} (${data.ruolo})`;
+        async function logout() {
+            if (!confirm('Sei sicuro di voler uscire?')) return;
 
-        return true;
-    } catch (error) {
-        console.error('Errore autenticazione:', error);
-        window.location.href = '/login';
-    }
-}
-
-async function logout() {
-    if (!confirm('Sei sicuro di voler uscire?')) return;
-
-    try {
-        await fetch('/auth/logout', { method: 'POST' });
-        window.location.href = '/login';
-    } catch (error) {
-        alert('Errore durante il logout');
-    }
-}
-
-// Controlla autenticazione al caricamento
-window.addEventListener('load', () => {
-    checkAuth().then(ok => {
-        if (ok) {
-            caricaClienti();
-            caricaStats();
+            try {
+                await fetch('/auth/logout', { method: 'POST' });
+                window.location.href = '/login';
+            } catch (error) {
+                alert('Errore durante il logout');
+            }
         }
-    });
-});
 
+        window.addEventListener('load', () => {
+            checkAuth().then(ok => {
+                if (ok) {
+                    caricaClienti();
+                    caricaStats();
+                }
+            });
+        });
 
         // ============================================================================
-        // FUNZIONI UTILITY
+        // UTILITY
         // ============================================================================
 
         function showAlert(message, type = 'success') {
@@ -678,7 +632,6 @@ window.addEventListener('load', () => {
         }
 
         function switchTab(tabName) {
-            // Nascondi tutti
             document.querySelectorAll('.tab-content').forEach(tab => {
                 tab.classList.remove('active');
             });
@@ -686,14 +639,12 @@ window.addEventListener('load', () => {
                 btn.classList.remove('active');
             });
 
-            // Mostra selezionato
             document.getElementById(`tab-${tabName}`).classList.add('active');
             event.target.classList.add('active');
 
-            // Carica dati
             if (tabName === 'clienti') caricaClienti();
             if (tabName === 'faq') caricaFAQ();
-            if (tabName === 'analytics') caricaStats();
+            if (tabName === 'analytics') caricaAnalytics();
         }
 
         // ============================================================================
@@ -818,12 +769,11 @@ window.addEventListener('load', () => {
         }
 
         function ricercaClienti() {
-            const search = document.getElementById('search-clienti').value;
-            // TODO: implementare ricerca lato client o server
+            // TODO: implementare ricerca
         }
 
         function filtraClienti() {
-            // TODO: implementare filtro per settore
+            // TODO: implementare filtro
         }
 
         function resetFormCliente() {
@@ -979,31 +929,155 @@ window.addEventListener('load', () => {
         // ANALYTICS
         // ============================================================================
 
+        let chartSettori = null;
+        let chartRisposte = null;
+
+        async function caricaAnalytics() {
+            console.log('Caricamento analytics...');
+            
+            try {
+                const response = await fetch('/api/analytics/dashboard');
+                const data = await response.json();
+
+                console.log('Dati analytics:', data);
+
+                if (!response.ok) {
+                    console.error('Errore:', data);
+                    return;
+                }
+
+                // Aggiorna numeri
+                document.getElementById('analytics-clienti').textContent = data.clienti.totali;
+                document.getElementById('analytics-attivi').textContent = data.clienti.attivi;
+                document.getElementById('analytics-messaggi').textContent = data.messaggi.settimana;
+                document.getElementById('analytics-faq').textContent = data.faq.totali;
+
+                // Disegna grafici
+                disegnaGraficoSettori(data.settori);
+                disegnaGraficoRisposte(data.messaggi.faq, data.messaggi.perplexity);
+
+                // Carica report
+                caricaReportMensile();
+
+            } catch (error) {
+                console.error('Errore analytics:', error);
+            }
+        }
+
+        function disegnaGraficoSettori(settori) {
+            const canvas = document.getElementById('chart-settori');
+            if (!canvas) {
+                console.error('Canvas chart-settori non trovato');
+                return;
+            }
+
+            const ctx = canvas.getContext('2d');
+            const labels = Object.keys(settori);
+            const values = Object.values(settori);
+            const colors = ['#208089', '#28a745', '#ffc107', '#dc3545', '#17a2b8'];
+
+            if (chartSettori) {
+                chartSettori.destroy();
+            }
+
+            chartSettori = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: values,
+                        backgroundColor: colors.slice(0, labels.length),
+                        borderColor: '#fff',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+
+        function disegnaGraficoRisposte(faq, perplexity) {
+            const canvas = document.getElementById('chart-risposte');
+            if (!canvas) {
+                console.error('Canvas chart-risposte non trovato');
+                return;
+            }
+
+            const ctx = canvas.getContext('2d');
+
+            if (chartRisposte) {
+                chartRisposte.destroy();
+            }
+
+            chartRisposte = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['FAQ', 'Perplexity'],
+                    datasets: [{
+                        label: 'Risposte',
+                        data: [faq, perplexity],
+                        backgroundColor: ['#208089', '#17a2b8'],
+                        borderColor: ['#1a6470', '#138496'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+        }
+
+        async function caricaReportMensile() {
+            try {
+                const response = await fetch('/api/analytics/report/mensile');
+                const data = await response.json();
+
+                const html = `
+                    <p><strong>📅 Periodo:</strong> ${data.periodo}</p>
+                    <p><strong>💬 Messaggi:</strong> ${data.messaggi}</p>
+                    <p><strong>👤 Nuovi Clienti:</strong> ${data.nuovi_clienti}</p>
+                    <p><strong>✅ Clienti Attivi:</strong> ${data.clienti_attivi}</p>
+                `;
+
+                document.getElementById('report-mensile-container').innerHTML = html;
+
+            } catch (error) {
+                console.error('Errore report mensile:', error);
+            }
+        }
+
         async function caricaStats() {
             try {
                 const response = await fetch('/api/dashboard/stats');
                 const data = await response.json();
 
                 if (data.success) {
-                    document.getElementById('stats-clienti').textContent = data.stats.clienti_totali;
-                    document.getElementById('stats-attivi').textContent = data.stats.clienti_attivi;
-                    document.getElementById('stats-faq').textContent = data.stats.faq_totali;
-                    document.getElementById('stats-messaggi').textContent = data.stats.clienti_con_messaggi;
+                    document.getElementById('stat-clienti').textContent = data.stats.clienti_totali;
                     document.getElementById('stat-attivi').textContent = data.stats.clienti_attivi;
+                    document.getElementById('stat-faq').textContent = data.stats.faq_totali;
                 }
             } catch (error) {
                 console.error('Errore caricamento stats:', error);
             }
         }
-
-        // ============================================================================
-        // INIZIALIZZAZIONE
-        // ============================================================================
-
-        window.addEventListener('load', () => {
-            caricaClienti();
-            caricaStats();
-        });
     </script>
 </body>
 </html>
