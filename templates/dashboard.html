@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🎛️ Dashboard Bot WhatsApp Trieste</title>
+
+<div style="display: flex; align-items: center; gap: 20px;">
+    <span id="username-display" style="color: #208089; font-weight: 600;"></span>
+    <button class="btn btn-secondary" onclick="logout()" style="padding: 8px 15px; font-size: 13px;">
+        🚪 Logout
+    </button>
+</div>
+
     <style>
         * {
             margin: 0;
@@ -610,6 +618,54 @@
 
     <!-- SCRIPT -->
     <script>
+
+        // ============================================================================
+// AUTENTICAZIONE
+// ============================================================================
+
+async function checkAuth() {
+    try {
+        const response = await fetch('/auth/check');
+        const data = await response.json();
+
+        if (!data.authenticated) {
+            window.location.href = '/login';
+            return false;
+        }
+
+        // Mostra username
+        document.getElementById('username-display').textContent = 
+            `👤 ${data.username} (${data.ruolo})`;
+
+        return true;
+    } catch (error) {
+        console.error('Errore autenticazione:', error);
+        window.location.href = '/login';
+    }
+}
+
+async function logout() {
+    if (!confirm('Sei sicuro di voler uscire?')) return;
+
+    try {
+        await fetch('/auth/logout', { method: 'POST' });
+        window.location.href = '/login';
+    } catch (error) {
+        alert('Errore durante il logout');
+    }
+}
+
+// Controlla autenticazione al caricamento
+window.addEventListener('load', () => {
+    checkAuth().then(ok => {
+        if (ok) {
+            caricaClienti();
+            caricaStats();
+        }
+    });
+});
+
+
         // ============================================================================
         // FUNZIONI UTILITY
         // ============================================================================
