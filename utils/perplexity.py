@@ -39,7 +39,7 @@ CONTESTO CLIENTE: {contesto_cliente}"""
         
         # Chiama API Perplexity
         response = requests.post(
-            "https://api.perplexity.ai/openai/v1/chat/completions",
+            "https://api.perplexity.ai/chat/completions",
             headers={
                 "Authorization": f"Bearer {api_key}",
                 "Content-Type": "application/json"
