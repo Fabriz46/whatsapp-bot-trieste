@@ -16,14 +16,14 @@ class Config:
     DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///bot_database.db")
     
     # ===== WHATSAPP API =====
-    WHATSAPP_API_URL = "https://graph.instagram.com/v18.0"
+    WHATSAPP_API_URL = "https://graph.facebook.com/v18.0"
     WHATSAPP_PHONE_ID = os.getenv("WHATSAPP_PHONE_ID", "")
     WHATSAPP_TOKEN = os.getenv("WHATSAPP_TOKEN", "")
     WHATSAPP_VERIFY_TOKEN = os.getenv("WHATSAPP_VERIFY_TOKEN", "trieste_bot_2025")
     
     # ===== PERPLEXITY API =====
     PERPLEXITY_API_KEY = os.getenv("PERPLEXITY_API_KEY", "")
-    PERPLEXITY_API_URL = "https://api.perplexity.ai/openai/v1/chat/completions"
+    PERPLEXITY_API_URL = "https://api.perplexity.ai/chat/completions"
     
     # ===== IMPOSTAZIONI BOT =====
     # Quanto deve somigliare una domanda a una keyword per essere FAQ match
