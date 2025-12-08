@@ -19,6 +19,9 @@ from utils.data_export import (
     export_backup_completo, import_clienti_da_csv, import_faq_da_csv
 )
 
+# from utils.integrations import invia_report_settimanale, notifica_admin_nuovo_cliente
+
+
 # Avvia lo scheduler
 start_scheduler()
 
