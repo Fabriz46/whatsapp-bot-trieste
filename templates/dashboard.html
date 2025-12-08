@@ -3,145 +3,404 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WhatsApp Bot Admin - Trieste</title>
+    <title>🎛️ Dashboard Bot WhatsApp Trieste</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         :root {
-            --primary: #075e54;
-            --secondary: #25d366;
-            --danger: #ff4757;
-            --light: #f0f2f5;
-            --dark: #1a1a1a;
+            --primary: #208089;
+            --primary-hover: #1a6470;
+            --secondary: #f5f5f5;
+            --danger: #dc3545;
+            --success: #28a745;
+            --warning: #ffc107;
+            --text: #333;
+            --border: #ddd;
         }
-        
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--light);
-            color: #333;
+            background: #f8f9fa;
+            color: var(--text);
         }
-        
-        header {
-            background: var(--primary);
-            color: white;
-            padding: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        
-        header h1 {
-            margin: 0;
-            font-size: 24px;
-        }
-        
+
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
         }
-        
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-        
-        .card {
+
+        /* HEADER */
+        .header {
             background: white;
+            padding: 20px;
             border-radius: 8px;
-            padding: 15px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        
+
+        .header h1 {
+            font-size: 24px;
+            color: var(--primary);
+        }
+
+        .header-stats {
+            display: flex;
+            gap: 30px;
+        }
+
         .stat {
+            text-align: center;
+        }
+
+        .stat-number {
             font-size: 28px;
             font-weight: bold;
             color: var(--primary);
         }
-        
+
         .stat-label {
             font-size: 12px;
-            color: #666;
-            margin-top: 5px;
+            color: #888;
+            text-transform: uppercase;
         }
-        
-        .section {
-            background: white;
-            border-radius: 8px;
-            padding: 20px;
+
+        /* TABS */
+        .tabs {
+            display: flex;
+            gap: 10px;
             margin-bottom: 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+            border-bottom: 2px solid var(--border);
         }
-        
-        .section h2 {
-            margin-top: 0;
+
+        .tab-btn {
+            padding: 12px 20px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            color: #888;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .tab-btn:hover {
             color: var(--primary);
         }
-        
+
+        /* TAB CONTENT */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* CARD */
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        /* FORM */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            color: #888;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 14px;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        /* BOTTONI */
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: #e8e8e8;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        /* TABELLA */
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 15px;
         }
-        
-        th, td {
-            padding: 10px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        
+
         th {
             background: #f8f9fa;
+            padding: 12px;
+            text-align: left;
+            font-size: 12px;
             font-weight: 600;
+            text-transform: uppercase;
+            border-bottom: 2px solid var(--border);
+            color: #888;
         }
-        
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
         tr:hover {
             background: #f8f9fa;
         }
-        
+
         .badge {
             display: inline-block;
-            padding: 4px 10px;
-            border-radius: 20px;
+            padding: 4px 8px;
+            border-radius: 4px;
             font-size: 11px;
             font-weight: 600;
+            text-transform: uppercase;
         }
-        
+
         .badge-success {
             background: #d4edda;
             color: #155724;
         }
-        
+
         .badge-warning {
             background: #fff3cd;
             color: #856404;
         }
-        
+
         .badge-danger {
             background: #f8d7da;
             color: #721c24;
         }
-        
+
+        /* AZIONI */
+        .actions {
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+        }
+
+        /* ALERT */
+        .alert {
+            padding: 12px 15px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        .alert.success {
+            background: #d4edda;
+            color: #155724;
+            display: block;
+        }
+
+        .alert.error {
+            background: #f8d7da;
+            color: #721c24;
+            display: block;
+        }
+
+        /* SEARCH */
+        .search-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .search-bar input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+        }
+
+        .search-bar select {
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+        }
+
+        /* MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .modal-footer {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .header-stats {
+                width: 100%;
+                margin-top: 15px;
+                flex-wrap: wrap;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            table {
+                font-size: 12px;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+        }
+
+        /* LOADING */
         .loading {
             text-align: center;
-            color: #999;
-            padding: 20px;
+            padding: 40px;
+            color: #888;
         }
-        
+
         .spinner {
             display: inline-block;
-            width: 20px;
-            height: 20px;
+            width: 30px;
+            height: 30px;
             border: 3px solid #f3f3f3;
             border-top: 3px solid var(--primary);
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
-        
+
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
@@ -149,158 +408,546 @@
     </style>
 </head>
 <body>
-    <header>
-        <h1>🤖 WhatsApp Bot Admin</h1>
-        <p>Dashboard di controllo - Trieste</p>
-    </header>
-    
     <div class="container">
-        <!-- STATISTICHE -->
-        <div class="grid">
-            <div class="card">
-                <div class="stat" id="clienti-count">-</div>
-                <div class="stat-label">👥 Clienti Totali</div>
-            </div>
-            <div class="card">
-                <div class="stat" id="faq-count">-</div>
-                <div class="stat-label">❓ FAQ Disponibili</div>
-            </div>
-            <div class="card">
-                <div class="stat" id="messaggi-count">-</div>
-                <div class="stat-label">💬 Messaggi Oggi</div>
-            </div>
-            <div class="card">
-                <div class="stat" id="status-check">-</div>
-                <div class="stat-label">🟢 Bot Status</div>
+        <!-- HEADER -->
+        <div class="header">
+            <h1>🎛️ Dashboard WhatsApp Bot</h1>
+            <div class="header-stats">
+                <div class="stat">
+                    <div class="stat-number" id="stat-clienti">0</div>
+                    <div class="stat-label">Clienti</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number" id="stat-faq">0</div>
+                    <div class="stat-label">FAQ</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number" id="stat-attivi">0</div>
+                    <div class="stat-label">Attivi</div>
+                </div>
             </div>
         </div>
-        
-        <!-- SEZIONE CLIENTI -->
-        <div class="section">
-            <h2>👥 Clienti</h2>
-            <table id="clienti-table">
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Telefono</th>
-                        <th>Settore</th>
-                        <th>Messaggi</th>
-                        <th>Stato</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td colspan="5" class="loading"><div class="spinner"></div> Caricamento...</td></tr>
-                </tbody>
-            </table>
+
+        <!-- ALERT -->
+        <div class="alert" id="alert"></div>
+
+        <!-- TABS -->
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('clienti')">👥 Clienti</button>
+            <button class="tab-btn" onclick="switchTab('faq')">❓ FAQ</button>
+            <button class="tab-btn" onclick="switchTab('analytics')">📈 Analytics</button>
+            <button class="tab-btn" onclick="switchTab('settings')">⚙️ Impostazioni</button>
         </div>
-        
-        <!-- SEZIONE FAQ -->
-        <div class="section">
-            <h2>❓ FAQ</h2>
-            <table id="faq-table">
-                <thead>
-                    <tr>
-                        <th>Domanda</th>
-                        <th>Settore</th>
-                        <th>Priorità</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td colspan="3" class="loading"><div class="spinner"></div> Caricamento...</td></tr>
-                </tbody>
-            </table>
+
+        <!-- TAB: CLIENTI -->
+        <div id="tab-clienti" class="tab-content active">
+            <div class="card">
+                <div class="card-title">➕ Aggiungi Nuovo Cliente</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Numero WhatsApp *</label>
+                        <input type="text" id="cliente-phone" placeholder="+39...">
+                    </div>
+                    <div class="form-group">
+                        <label>Nome *</label>
+                        <input type="text" id="cliente-nome" placeholder="Es: Mario Rossi">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Azienda</label>
+                        <input type="text" id="cliente-azienda" placeholder="Es: Rossi & Co">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="cliente-email" placeholder="mario@rossi.it">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Settore</label>
+                        <select id="cliente-settore">
+                            <option value="generico">Generico</option>
+                            <option value="sport">Sport</option>
+                            <option value="coworking">Coworking</option>
+                            <option value="finanza">Finanza</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Etichette</label>
+                        <input type="text" id="cliente-etichette" placeholder="Es: VIP, Attivo">
+                    </div>
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="creaCliente()">✅ Aggiungi Cliente</button>
+                    <button class="btn btn-secondary" onclick="resetFormCliente()">🔄 Cancella</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">📋 Lista Clienti</div>
+                <div class="search-bar">
+                    <input type="text" id="search-clienti" placeholder="Cerca per nome, phone, email..." onkeyup="ricercaClienti()">
+                    <select id="filter-settore" onchange="filtraClienti()">
+                        <option value="">Tutti i settori</option>
+                        <option value="generico">Generico</option>
+                        <option value="sport">Sport</option>
+                        <option value="coworking">Coworking</option>
+                        <option value="finanza">Finanza</option>
+                    </select>
+                </div>
+                <div id="clienti-container">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        <p>Caricamento...</p>
+                    </div>
+                </div>
+            </div>
         </div>
-        
-        <!-- SEZIONE MESSAGGI -->
-        <div class="section">
-            <h2>💬 Ultimi Messaggi</h2>
-            <table id="messaggi-table">
-                <thead>
-                    <tr>
-                        <th>Cliente</th>
-                        <th>Domanda</th>
-                        <th>Tipo</th>
-                        <th>Data</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td colspan="4" class="loading"><div class="spinner"></div> Caricamento...</td></tr>
-                </tbody>
-            </table>
+
+        <!-- TAB: FAQ -->
+        <div id="tab-faq" class="tab-content">
+            <div class="card">
+                <div class="card-title">➕ Aggiungi Nuova FAQ</div>
+                <div class="form-group">
+                    <label>Domanda *</label>
+                    <input type="text" id="faq-domanda" placeholder="Es: A che ora siete aperti?">
+                </div>
+                <div class="form-group">
+                    <label>Risposta *</label>
+                    <textarea id="faq-risposta" placeholder="Scrivi la risposta..."></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Settore</label>
+                        <select id="faq-settore">
+                            <option value="">Generico</option>
+                            <option value="sport">Sport</option>
+                            <option value="coworking">Coworking</option>
+                            <option value="finanza">Finanza</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Priorità (1-10)</label>
+                        <input type="number" id="faq-priorita" min="1" max="10" value="5">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Parole chiave (opzionale)</label>
+                    <input type="text" id="faq-keywords" placeholder="Es: orari,apertura,quando">
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="creaFAQ()">✅ Aggiungi FAQ</button>
+                    <button class="btn btn-secondary" onclick="resetFormFAQ()">🔄 Cancella</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">❓ Lista FAQ</div>
+                <div class="search-bar">
+                    <input type="text" id="search-faq" placeholder="Cerca per domanda..." onkeyup="ricercaFAQ()">
+                    <select id="filter-faq-settore" onchange="filtraFAQ()">
+                        <option value="">Tutti i settori</option>
+                        <option value="">Generico</option>
+                        <option value="sport">Sport</option>
+                        <option value="coworking">Coworking</option>
+                        <option value="finanza">Finanza</option>
+                    </select>
+                </div>
+                <div id="faq-container">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        <p>Caricamento...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: ANALYTICS -->
+        <div id="tab-analytics" class="tab-content">
+            <div class="card">
+                <div class="card-title">📊 Statistiche Generali</div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                    <div style="background: #f0f8ff; padding: 20px; border-radius: 8px;">
+                        <div style="font-size: 28px; font-weight: bold; color: var(--primary);" id="stats-clienti">0</div>
+                        <div style="font-size: 12px; color: #888; margin-top: 5px;">Clienti Totali</div>
+                    </div>
+                    <div style="background: #f0fff4; padding: 20px; border-radius: 8px;">
+                        <div style="font-size: 28px; font-weight: bold; color: var(--success);" id="stats-attivi">0</div>
+                        <div style="font-size: 12px; color: #888; margin-top: 5px;">Clienti Attivi</div>
+                    </div>
+                    <div style="background: #fffaf0; padding: 20px; border-radius: 8px;">
+                        <div style="font-size: 28px; font-weight: bold; color: var(--warning);" id="stats-faq">0</div>
+                        <div style="font-size: 12px; color: #888; margin-top: 5px;">FAQ Disponibili</div>
+                    </div>
+                    <div style="background: #fff5f5; padding: 20px; border-radius: 8px;">
+                        <div style="font-size: 28px; font-weight: bold; color: var(--danger);" id="stats-messaggi">0</div>
+                        <div style="font-size: 12px; color: #888; margin-top: 5px;">Clienti con Messaggi</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: IMPOSTAZIONI -->
+        <div id="tab-settings" class="tab-content">
+            <div class="card">
+                <div class="card-title">⚙️ Impostazioni Bot</div>
+                <p style="color: #888; margin-bottom: 20px;">
+                    ℹ️ Le impostazioni sono gestite dal file de>.env</code><br>
+                    Per modificarle, accedi a Railway e aggiorna le variabili di ambiente.
+                </p>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 4px; border-left: 4px solid var(--primary);">
+                    <strong>🔗 Link Utili:</strong>
+                    <ul style="margin: 10px 0 0 20px;">
+                        <li><a href="https://railway.app" target="_blank">Railway Dashboard</a></li>
+                        <li><a href="https://developers.facebook.com" target="_blank">Meta Developers</a></li>
+                        <li><a href="https://www.perplexity.ai/settings/api" target="_blank">Perplexity API</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
-    
+
+    <!-- SCRIPT -->
     <script>
-        // Carica dati al caricamento pagina
-        window.addEventListener('load', caricaDati);
-        
-        // Aggiorna dati ogni 10 secondi
-        setInterval(caricaDati, 10000);
-        
-        async function caricaDati() {
+        // ============================================================================
+        // FUNZIONI UTILITY
+        // ============================================================================
+
+        function showAlert(message, type = 'success') {
+            const alert = document.getElementById('alert');
+            alert.textContent = message;
+            alert.className = `alert ${type}`;
+            setTimeout(() => alert.classList.remove('success', 'error'), 3000);
+        }
+
+        function switchTab(tabName) {
+            // Nascondi tutti
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Mostra selezionato
+            document.getElementById(`tab-${tabName}`).classList.add('active');
+            event.target.classList.add('active');
+
+            // Carica dati
+            if (tabName === 'clienti') caricaClienti();
+            if (tabName === 'faq') caricaFAQ();
+            if (tabName === 'analytics') caricaStats();
+        }
+
+        // ============================================================================
+        // CLIENTI
+        // ============================================================================
+
+        async function creaCliente() {
+            const phone = document.getElementById('cliente-phone').value;
+            const nome = document.getElementById('cliente-nome').value;
+
+            if (!phone || !nome) {
+                showAlert('❌ Phone e Nome sono obbligatori', 'error');
+                return;
+            }
+
             try {
-                // Carica status
-                const status = await fetch('/api/status').then(r => r.json());
-                document.getElementById('clienti-count').textContent = status.clienti.totali;
-                document.getElementById('faq-count').textContent = status.faq.totali;
-                document.getElementById('messaggi-count').textContent = status.messaggi.oggi;
-                document.getElementById('status-check').textContent = '🟢 Online';
-                
-                // Carica clienti
-                const clienti = await fetch('/api/clienti').then(r => r.json());
-                const tableClienti = document.getElementById('clienti-table').querySelector('tbody');
-                
-                if (clienti.length === 0) {
-                    tableClienti.innerHTML = '<tr><td colspan="5" class="loading">Nessun cliente</td></tr>';
+                const response = await fetch('/api/dashboard/clienti', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        phone,
+                        nome,
+                        azienda: document.getElementById('cliente-azienda').value,
+                        email: document.getElementById('cliente-email').value,
+                        settore: document.getElementById('cliente-settore').value,
+                        etichette: document.getElementById('cliente-etichette').value,
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    showAlert(`✅ ${data.message}`);
+                    resetFormCliente();
+                    caricaClienti();
                 } else {
-                    tableClienti.innerHTML = clienti.map(c => `
-                        <tr>
-                            <td><strong>${c.nome}</strong></td>
-                            <td>${c.phone}</td>
-                            <td>${c.settore}</td>
-                            <td>${c.numero_messaggi}</td>
-                            <td><span class="badge badge-success">${c.stato}</span></td>
-                        </tr>
-                    `).join('');
+                    showAlert(`❌ ${data.error}`, 'error');
                 }
-                
-                // Carica FAQ
-                const faq = await fetch('/api/faq').then(r => r.json());
-                const tableFAQ = document.getElementById('faq-table').querySelector('tbody');
-                
-                if (faq.length === 0) {
-                    tableFAQ.innerHTML = '<tr><td colspan="3" class="loading">Nessuna FAQ</td></tr>';
-                } else {
-                    tableFAQ.innerHTML = faq.map(f => `
-                        <tr>
-                            <td>${f.domanda.substring(0, 60)}</td>
-                            <td>${f.settore}</td>
-                            <td>${'⭐'.repeat(f.priorita/2)}</td>
-                        </tr>
-                    `).join('');
-                }
-                
-                // Carica messaggi
-                const messaggi = await fetch('/api/messaggi').then(r => r.json());
-                const tableMsg = document.getElementById('messaggi-table').querySelector('tbody');
-                
-                if (messaggi.length === 0) {
-                    tableMsg.innerHTML = '<tr><td colspan="4" class="loading">Nessun messaggio</td></tr>';
-                } else {
-                    tableMsg.innerHTML = messaggi.map(m => `
-                        <tr>
-                            <td>${m.cliente}</td>
-                            <td>${m.domanda.substring(0, 40)}...</td>
-                            <td><span class="badge ${m.tipo === 'faq' ? 'badge-success' : 'badge-warning'}">${m.tipo}</span></td>
-                            <td>${new Date(m.data).toLocaleString('it-IT')}</td>
-                        </tr>
-                    `).join('');
-                }
-            } catch (e) {
-                console.error('Errore caricamento dati:', e);
-                document.getElementById('status-check').textContent = '🔴 Errore';
+            } catch (error) {
+                showAlert(`❌ Errore: ${error.message}`, 'error');
             }
         }
+
+        async function caricaClienti() {
+            try {
+                const response = await fetch('/api/dashboard/clienti');
+                const data = await response.json();
+
+                if (!data.success) {
+                    showAlert('❌ Errore nel caricamento clienti', 'error');
+                    return;
+                }
+
+                renderClientiTable(data.clienti);
+                document.getElementById('stat-clienti').textContent = data.totale;
+            } catch (error) {
+                showAlert(`❌ Errore: ${error.message}`, 'error');
+            }
+        }
+
+        function renderClientiTable(clienti) {
+            let html = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Phone</th>
+                            <th>Azienda</th>
+                            <th>Settore</th>
+                            <th>Email</th>
+                            <th>Stato</th>
+                            <th>Messaggi</th>
+                            <th>Azioni</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            clienti.forEach(c => {
+                html += `
+                    <tr>
+                        <td>${c.nome}</td>
+                        <td>${c.phone}</td>
+                        <td>${c.azienda || '-'}</td>
+                        <td>${c.settore}</td>
+                        <td>${c.email || '-'}</td>
+                        <td><span class="badge badge-success">${c.stato}</span></td>
+                        <td>${c.numero_messaggi}</td>
+                        <td>
+                            <div class="actions">
+                                <button class="btn btn-secondary btn-sm" onclick="editaCliente(${c.id})">✏️ Modifica</button>
+                                <button class="btn btn-danger btn-sm" onclick="eliminaCliente(${c.id})">🗑️ Elimina</button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            html += `</tbody></table>`;
+            document.getElementById('clienti-container').innerHTML = html;
+        }
+
+        async function eliminaCliente(id) {
+            if (!confirm('Sei sicuro di voler eliminare questo cliente?')) return;
+
+            try {
+                const response = await fetch(`/api/dashboard/clienti/${id}`, {
+                    method: 'DELETE'
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    showAlert(`✅ ${data.message}`);
+                    caricaClienti();
+                } else {
+                    showAlert(`❌ ${data.error}`, 'error');
+                }
+            } catch (error) {
+                showAlert(`❌ Errore: ${error.message}`, 'error');
+            }
+        }
+
+        function ricercaClienti() {
+            const search = document.getElementById('search-clienti').value;
+            // TODO: implementare ricerca lato client o server
+        }
+
+        function filtraClienti() {
+            // TODO: implementare filtro per settore
+        }
+
+        function resetFormCliente() {
+            document.getElementById('cliente-phone').value = '';
+            document.getElementById('cliente-nome').value = '';
+            document.getElementById('cliente-azienda').value = '';
+            document.getElementById('cliente-email').value = '';
+            document.getElementById('cliente-settore').value = 'generico';
+            document.getElementById('cliente-etichette').value = '';
+        }
+
+        function editaCliente(id) {
+            alert('Modifica cliente ' + id + ' - da implementare');
+        }
+
+        // ============================================================================
+        // FAQ
+        // ============================================================================
+
+        async function creaFAQ() {
+            const domanda = document.getElementById('faq-domanda').value;
+            const risposta = document.getElementById('faq-risposta').value;
+
+            if (!domanda || !risposta) {
+                showAlert('❌ Domanda e Risposta sono obbligatori', 'error');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/dashboard/faq', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        domanda_completa: domanda,
+                        risposta,
+                        settore: document.getElementById('faq-settore').value,
+                        priorita: parseInt(document.getElementById('faq-priorita').value),
+                        domanda_keywords: document.getElementById('faq-keywords').value,
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    showAlert('✅ FAQ creata');
+                    resetFormFAQ();
+                    caricaFAQ();
+                } else {
+                    showAlert(`❌ ${data.error}`, 'error');
+                }
+            } catch (error) {
+                showAlert(`❌ Errore: ${error.message}`, 'error');
+            }
+        }
+
+        async function caricaFAQ() {
+            try {
+                const response = await fetch('/api/dashboard/faq');
+                const data = await response.json();
+
+                if (!data.success) {
+                    showAlert('❌ Errore nel caricamento FAQ', 'error');
+                    return;
+                }
+
+                renderFAQTable(data.faq);
+                document.getElementById('stat-faq').textContent = data.totale;
+            } catch (error) {
+                showAlert(`❌ Errore: ${error.message}`, 'error');
+            }
+        }
+
+        function renderFAQTable(faq_list) {
+            let html = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Domanda</th>
+                            <th>Settore</th>
+                            <th>Priorità</th>
+                            <th>Azioni</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            faq_list.forEach(f => {
+                html += `
+                    <tr>
+                        <td>${f.domanda_completa}</td>
+                        <td>${f.settore || 'Generico'}</td>
+                        <td>
+                            <span style="background: #ffc107; padding: 4px 8px; border-radius: 4px; color: white; font-weight: bold;">
+                                ${f.priorita}/10
+                            </span>
+                        </td>
+                        <td>
+                            <div class="actions">
+                                <button class="btn btn-secondary btn-sm" onclick="editaFAQ(${f.id})">✏️ Modifica</button>
+                                <button class="btn btn-danger btn-sm" onclick="eliminaFAQ(${f.id})">🗑️ Elimina</button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            html += `</tbody></table>`;
+            document.getElementById('faq-container').innerHTML = html;
+        }
+
+        async function eliminaFAQ(id) {
+            if (!confirm('Sei sicuro di voler eliminare questa FAQ?')) return;
+
+            try {
+                const response = await fetch(`/api/dashboard/faq/${id}`, {
+                    method: 'DELETE'
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    showAlert(`✅ ${data.message}`);
+                    caricaFAQ();
+                } else {
+                    showAlert(`❌ ${data.error}`, 'error');
+                }
+            } catch (error) {
+                showAlert(`❌ Errore: ${error.message}`, 'error');
+            }
+        }
+
+        function resetFormFAQ() {
+            document.getElementById('faq-domanda').value = '';
+            document.getElementById('faq-risposta').value = '';
+            document.getElementById('faq-settore').value = '';
+            document.getElementById('faq-priorita').value = '5';
+            document.getElementById('faq-keywords').value = '';
+        }
+
+        function ricercaFAQ() {
+            // TODO: implementare ricerca
+        }
+
+        function filtraFAQ() {
+            // TODO: implementare filtro
+        }
+
+        function editaFAQ(id) {
+            alert('Modifica FAQ ' + id + ' - da implementare');
+        }
+
+        // ============================================================================
+        // ANALYTICS
+        // ============================================================================
+
+        async function caricaStats() {
+            try {
+                const response = await fetch('/api/dashboard/stats');
+                const data = await response.json();
+
+                if (data.success) {
+                    document.getElementById('stats-clienti').textContent = data.stats.clienti_totali;
+                    document.getElementById('stats-attivi').textContent = data.stats.clienti_attivi;
+                    document.getElementById('stats-faq').textContent = data.stats.faq_totali;
+                    document.getElementById('stats-messaggi').textContent = data.stats.clienti_con_messaggi;
+                    document.getElementById('stat-attivi').textContent = data.stats.clienti_attivi;
+                }
+            } catch (error) {
+                console.error('Errore caricamento stats:', error);
+            }
+        }
+
+        // ============================================================================
+        // INIZIALIZZAZIONE
+        // ============================================================================
+
+        window.addEventListener('load', () => {
+            caricaClienti();
+            caricaStats();
+        });
     </script>
 </body>
 </html>
