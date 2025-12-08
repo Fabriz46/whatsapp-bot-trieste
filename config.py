@@ -8,6 +8,21 @@ from dotenv import load_dotenv
 # Carica variabili da file .env
 load_dotenv()
 
+# ============================================================================
+# EMAIL CONFIGURATION
+# ============================================================================
+
+SMTP_SERVER = os.getenv('SMTP_SERVER', '')
+SMTP_PORT = int(os.getenv('SMTP_PORT', 587))
+SMTP_USER = os.getenv('SMTP_USER', '')
+SMTP_PASSWORD = os.getenv('SMTP_PASSWORD', '')
+SMTP_FROM = os.getenv('SMTP_FROM', 'noreply@trieste-facility.it')
+ADMIN_EMAIL = os.getenv('ADMIN_EMAIL', 'admin@trieste-facility.it')
+
+# Opzionale: Webhook esterno
+WEBHOOK_URL = os.getenv('WEBHOOK_URL', '')
+
+
 class Config:
     """Tutte le configurazioni del bot"""
     
