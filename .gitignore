@@ -34,4 +34,4 @@ Thumbs.db
 # Logs
 *.log
 
-google-service-account.json
+google_credentials/coral-ring-480616-v5-e8c705f494f2.json
